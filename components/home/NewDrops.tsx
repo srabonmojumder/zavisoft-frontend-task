@@ -21,7 +21,7 @@ export default function NewDrops({ products }: NewDropsProps) {
         </h2>
         <Link
           href="/"
-          className="inline-flex items-center justify-center bg-blue text-white text-xs font-bold uppercase tracking-widest px-8 py-3.5 rounded-lg hover:bg-blue-dark transition-colors w-fit shrink-0"
+          className="inline-flex items-center justify-center bg-blue text-white text-[13px] font-bold uppercase tracking-widest px-10 py-4 rounded-xl hover:bg-blue-dark transition-colors w-fit shrink-0"
         >
           Shop New Drops
         </Link>

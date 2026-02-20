@@ -16,7 +16,7 @@ export default function Header() {
       <div className="container py-5">
 
         {/* Desktop Nav - Pill shaped */}
-        <nav className="hidden lg:flex items-center justify-between bg-white border border-border/60 shadow-sm rounded-full px-10 h-16 relative">
+        <nav className="hidden lg:flex items-center justify-between bg-white border border-border/60 shadow-sm rounded-[24px] px-10 max-xl:px-6 py-6 relative">
 
           {/* Left nav items */}
           <div className="flex items-center gap-10">

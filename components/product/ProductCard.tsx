@@ -21,17 +21,17 @@ export default function ProductCard({ product, isNew = true, discount }: Product
     <div className="group flex flex-col">
 
       {/* Image container with lavender background */}
-      <div className="relative bg-[#D7D7EF] rounded-2xl overflow-hidden aspect-square mb-3 border-4 border-white">
+      <div className="relative bg-[#D7D7EF] rounded-3xl overflow-hidden aspect-square mb-4 border-[5px] border-white shadow-sm">
 
         {/* Badges */}
-        <div className="absolute top-3 left-3 z-10 flex flex-col gap-1.5">
+        <div className="absolute top-4 left-4 z-10 flex flex-col gap-1.5">
           {isNew && (
-            <span className="bg-blue text-white text-[10px] font-bold uppercase px-2.5 py-1 rounded-md leading-none">
+            <span className="bg-blue text-white text-[11px] font-bold uppercase px-3 py-1.5 rounded-md leading-none">
               New
             </span>
           )}
           {discount && (
-            <span className="bg-yellow text-dark text-[10px] font-bold px-2.5 py-1 rounded-md leading-none">
+            <span className="bg-yellow text-dark text-[11px] font-bold px-3 py-1.5 rounded-md leading-none">
               {discount}
             </span>
           )}
@@ -50,14 +50,14 @@ export default function ProductCard({ product, isNew = true, discount }: Product
       </div>
 
       {/* Product title */}
-      <h3 className="text-[11px] sm:text-xs font-bold text-dark uppercase leading-tight mb-2.5 line-clamp-2 tracking-wide">
+      <h3 className="text-xs sm:text-sm font-bold text-dark uppercase leading-tight mb-3 line-clamp-2 tracking-wide">
         {product.title}
       </h3>
 
       {/* View Product button - dark bg with orange price */}
       <Link
         href={`/products/${product.id}`}
-        className="mt-auto inline-flex items-center justify-center w-full bg-dark text-white text-[10px] sm:text-xs font-bold uppercase tracking-wide px-3 py-2.5 rounded-lg hover:bg-dark-secondary transition-colors"
+        className="mt-auto inline-flex items-center justify-center w-full bg-dark text-white text-[11px] sm:text-xs font-bold uppercase tracking-wider px-4 py-3 rounded-lg hover:bg-dark-secondary transition-colors"
       >
         View Product - <span className="text-yellow ml-1">{formatPrice(product.price)}</span>
       </Link>

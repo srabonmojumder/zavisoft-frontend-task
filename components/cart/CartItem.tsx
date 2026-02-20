@@ -29,13 +29,20 @@ export default function CartItem({ item }: CartItemProps) {
 
       {/* Product details */}
       <div className="flex-1 min-w-0">
-        <h3 className="text-sm font-bold text-dark uppercase leading-tight line-clamp-2">
-          {item.product.title}
-        </h3>
-        <p className="text-xs text-text-secondary mt-1">
-          {item.product.category?.name || "Men's Running Shoes"}
-        </p>
-        <p className="text-xs text-text-secondary mt-0.5">{item.color}</p>
+        <div className="flex items-start justify-between gap-2">
+          <div>
+            <h3 className="text-sm font-bold text-dark uppercase leading-tight line-clamp-2">
+              {item.product.title}
+            </h3>
+            <p className="text-xs text-text-secondary mt-1">
+              {item.product.category?.name || "Men's Road Running Shoes"}
+            </p>
+            <p className="text-xs text-text-secondary mt-0.5">{item.color}</p>
+          </div>
+          <p className="text-base font-bold text-yellow whitespace-nowrap">
+            {formatPrice(item.product.price)}
+          </p>
+        </div>
 
         {/* Size & Quantity selectors */}
         <div className="flex items-center gap-4 mt-3">
@@ -70,26 +77,21 @@ export default function CartItem({ item }: CartItemProps) {
           </div>
         </div>
 
-        {/* Price & Actions */}
-        <div className="flex items-center justify-between mt-3">
-          <p className="text-base font-bold text-yellow">
-            {formatPrice(item.product.price)}
-          </p>
-          <div className="flex items-center gap-2">
-            <button
-              className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors"
-              aria-label="Add to wishlist"
-            >
-              <Heart className="w-4 h-4 text-dark" />
-            </button>
-            <button
-              onClick={() => removeFromCart(item.product.id)}
-              className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors"
-              aria-label="Remove from cart"
-            >
-              <Trash2 className="w-4 h-4 text-dark" />
-            </button>
-          </div>
+        {/* Actions */}
+        <div className="flex items-center gap-2 mt-3">
+          <button
+            className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors"
+            aria-label="Add to wishlist"
+          >
+            <Heart className="w-4 h-4 text-dark" />
+          </button>
+          <button
+            onClick={() => removeFromCart(item.product.id)}
+            className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors"
+            aria-label="Remove from cart"
+          >
+            <Trash2 className="w-4 h-4 text-dark" />
+          </button>
         </div>
       </div>
     </div>

@@ -33,19 +33,19 @@ export default function Reviews() {
         <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-dark uppercase">
           Reviews
         </h2>
-        <button className="text-blue text-sm font-bold uppercase hover:text-blue-dark transition-colors">
+        <button className="bg-dark text-white text-xs font-bold uppercase tracking-wide px-5 py-2.5 rounded-lg hover:bg-dark-secondary transition-colors">
           See All
         </button>
       </div>
 
-      {/* Reviews grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+      {/* Reviews - scrollable on mobile, grid on desktop */}
+      <div className="flex md:grid md:grid-cols-3 gap-4 md:gap-6 overflow-x-auto hide-scrollbar pb-2 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0">
         {reviews.map((review) => (
-          <div key={review.id} className="bg-white rounded-2xl p-5 shadow-sm">
+          <div key={review.id} className="bg-white rounded-2xl p-5 shadow-sm min-w-[280px] md:min-w-0 flex-shrink-0">
             {/* Review header */}
             <div className="flex items-start gap-3 mb-4">
-              <div className="w-10 h-10 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
-                <div className="w-full h-full bg-gray-300 rounded-full" />
+              <div className="w-10 h-10 rounded-full bg-blue/10 overflow-hidden flex-shrink-0 flex items-center justify-center">
+                <div className="w-6 h-6 rounded-full bg-blue/30" />
               </div>
               <div>
                 <h4 className="font-bold text-sm text-dark">{review.name}</h4>
@@ -67,7 +67,7 @@ export default function Reviews() {
                 src={review.image}
                 alt="Review product"
                 fill
-                sizes="(max-width: 768px) 100vw, 33vw"
+                sizes="(max-width: 768px) 280px, 33vw"
                 className="object-cover"
               />
             </div>

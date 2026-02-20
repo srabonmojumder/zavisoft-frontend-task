@@ -55,33 +55,17 @@ export default function Footer() {
           {/* Follow us */}
           <div>
             <h3 className="text-yellow font-bold text-lg mb-4">Follow us</h3>
-            <div className="flex gap-3">
-              <Link
-                href="#"
-                className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors"
-                aria-label="Facebook"
-              >
+            <div className="flex gap-4">
+              <Link href="#" className="text-white hover:text-yellow transition-colors" aria-label="Facebook">
                 <Facebook className="w-5 h-5" />
               </Link>
-              <Link
-                href="#"
-                className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors"
-                aria-label="Instagram"
-              >
+              <Link href="#" className="text-white hover:text-yellow transition-colors" aria-label="Instagram">
                 <Instagram className="w-5 h-5" />
               </Link>
-              <Link
-                href="#"
-                className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors"
-                aria-label="Twitter"
-              >
+              <Link href="#" className="text-white hover:text-yellow transition-colors" aria-label="Twitter">
                 <Twitter className="w-5 h-5" />
               </Link>
-              <Link
-                href="#"
-                className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors"
-                aria-label="TikTok"
-              >
+              <Link href="#" className="text-white hover:text-yellow transition-colors" aria-label="TikTok">
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.75a8.27 8.27 0 004.76 1.5V6.8a4.83 4.83 0 01-1-.11z" />
                 </svg>
@@ -94,10 +78,7 @@ export default function Footer() {
       {/* Large KICKS logo */}
       <div className="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12 pb-4">
         <div className="overflow-hidden">
-          <h2
-            className="text-[80px] sm:text-[120px] md:text-[160px] lg:text-[200px] font-black leading-none tracking-tighter text-white select-none"
-            style={{ WebkitTextStroke: '2px rgba(255,255,255,0.1)', WebkitTextFillColor: 'transparent' }}
-          >
+          <h2 className="text-[80px] sm:text-[120px] md:text-[160px] lg:text-[200px] font-black leading-none tracking-tighter text-white select-none">
             KICKS
           </h2>
         </div>

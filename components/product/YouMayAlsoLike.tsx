@@ -48,20 +48,27 @@ export default function YouMayAlsoLike({ products }: YouMayAlsoLikeProps) {
         </div>
       </div>
 
-      {/* Scrollable products */}
+      {/* Mobile: 2-column grid */}
+      <div className="grid grid-cols-2 gap-4 md:hidden">
+        {products.slice(0, 4).map((product) => (
+          <ProductCard key={product.id} product={product} isNew />
+        ))}
+      </div>
+
+      {/* Desktop: Scrollable carousel */}
       <div
         ref={scrollRef}
-        className="flex gap-4 md:gap-6 overflow-x-auto hide-scrollbar pb-4"
+        className="hidden md:flex gap-6 overflow-x-auto hide-scrollbar pb-4"
       >
         {products.map((product) => (
-          <div key={product.id} className="min-w-[200px] sm:min-w-[220px] md:min-w-[260px] flex-shrink-0">
+          <div key={product.id} className="min-w-[260px] lg:min-w-[280px] flex-shrink-0">
             <ProductCard product={product} isNew />
           </div>
         ))}
       </div>
 
       {/* Scroll indicators */}
-      <div className="flex justify-center gap-1.5 mt-6">
+      <div className="hidden md:flex justify-center gap-1.5 mt-6">
         {Array.from({ length: Math.min(4, Math.ceil(products.length / 4)) }).map((_, i) => (
           <div
             key={i}

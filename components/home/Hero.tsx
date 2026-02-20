@@ -11,7 +11,7 @@ export default function Hero() {
 
       {/* Featured product card */}
       <div className="relative bg-dark rounded-2xl md:rounded-3xl overflow-hidden">
-        <div className="relative h-[300px] sm:h-[350px] md:h-[400px] lg:h-[450px]">
+        <div className="relative h-[300px] sm:h-[350px] md:h-[400px] lg:h-[500px]">
           {/* Background image */}
           <div
             className="absolute inset-0 bg-cover bg-center opacity-60"
@@ -21,18 +21,24 @@ export default function Hero() {
             }}
           />
           {/* Overlay gradient */}
-          <div className="absolute inset-0 bg-gradient-to-r from-dark/90 via-dark/50 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-dark/90 via-dark/60 to-transparent" />
+
+          {/* New product of the year - Vertical badge */}
+          <div className="absolute top-4 left-4 z-20">
+            <div className="bg-[#E74C3C] text-white text-[10px] font-bold uppercase tracking-wider px-3 py-6 rounded-lg writing-vertical">
+              <span className="block" style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', transform: 'rotate(180deg)' }}>
+                New product of the year
+              </span>
+            </div>
+          </div>
 
           {/* Content */}
-          <div className="relative z-10 flex flex-col justify-end h-full p-6 md:p-10 lg:p-12 max-w-md">
-            <span className="text-xs text-white/60 tracking-widest uppercase mb-2">
-              Featured
-            </span>
+          <div className="relative z-10 flex flex-col justify-end h-full p-6 md:p-10 lg:p-12 pl-16 md:pl-20 max-w-lg">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white uppercase leading-tight">
               Nike Air Max
             </h2>
             <p className="text-white/70 text-sm mt-2 leading-relaxed">
-              Nike introducing the new air max for everyone&apos;s comfort.
+              Nike introducing the new air max for everyone&apos;s comfort
             </p>
             <Link
               href="/"
@@ -47,7 +53,9 @@ export default function Hero() {
             {[1, 2, 3].map((i) => (
               <div
                 key={i}
-                className="w-14 h-14 lg:w-16 lg:h-16 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 overflow-hidden"
+                className={`w-14 h-14 lg:w-16 lg:h-16 rounded-lg overflow-hidden border-2 transition-all ${
+                  i === 1 ? 'border-white' : 'border-white/20'
+                }`}
               >
                 <div
                   className="w-full h-full bg-cover bg-center"

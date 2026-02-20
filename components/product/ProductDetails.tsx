@@ -25,6 +25,11 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
 
   const images = product.images?.map(sanitizeImageUrl).filter((url) => url !== '/placeholder.svg') || [];
   if (images.length === 0) images.push('/placeholder.svg');
+  // Fill up to 6 images for the grid by repeating existing ones
+  const gridImages = [...images];
+  while (gridImages.length < 6) {
+    gridImages.push(images[gridImages.length % images.length]);
+  }
 
   const handleAddToCart = () => {
     if (!selectedSize) return;
@@ -39,47 +44,73 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10">
       {/* Image gallery */}
-      <div className="space-y-4">
-        {/* Main image */}
-        <div className="relative bg-bg-card rounded-2xl md:rounded-3xl overflow-hidden aspect-square">
-          <Image
-            src={images[selectedImage] || '/placeholder.svg'}
-            alt={product.title}
-            fill
-            sizes="(max-width: 1024px) 100vw, 50vw"
-            className="object-cover"
-            priority
-          />
-          {/* New Release badge */}
-          <span className="absolute top-4 left-4 bg-blue text-white text-xs font-bold uppercase px-3 py-1.5 rounded-md">
-            New Release
-          </span>
+      <div>
+        {/* Mobile: Main image + thumbnails */}
+        <div className="lg:hidden space-y-3">
+          <div className="relative bg-bg-card rounded-2xl overflow-hidden aspect-square">
+            <Image
+              src={gridImages[selectedImage] || '/placeholder.svg'}
+              alt={product.title}
+              fill
+              sizes="100vw"
+              className="object-cover"
+              priority
+            />
+            <span className="absolute top-3 left-3 bg-blue text-white text-[10px] font-bold uppercase px-2.5 py-1 rounded-md">
+              New Release
+            </span>
+          </div>
+          {images.length > 1 && (
+            <div className="flex gap-2 overflow-x-auto hide-scrollbar pb-1">
+              {gridImages.slice(0, 6).map((img, index) => (
+                <button
+                  key={index}
+                  onClick={() => setSelectedImage(index)}
+                  className={`relative w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 border-2 transition-all ${
+                    selectedImage === index ? 'border-blue' : 'border-transparent'
+                  }`}
+                >
+                  <Image
+                    src={img}
+                    alt={`${product.title} view ${index + 1}`}
+                    fill
+                    sizes="64px"
+                    className="object-cover"
+                  />
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
-        {/* Thumbnails */}
-        {images.length > 1 && (
-          <div className="grid grid-cols-4 gap-3">
-            {images.slice(0, 4).map((img, index) => (
-              <button
-                key={index}
-                onClick={() => setSelectedImage(index)}
-                className={`relative aspect-square rounded-xl overflow-hidden border-2 transition-all ${
-                  selectedImage === index ? 'border-blue' : 'border-transparent'
-                }`}
-              >
-                <Image
-                  src={img}
-                  alt={`${product.title} view ${index + 1}`}
-                  fill
-                  sizes="120px"
-                  className="object-cover"
-                />
-              </button>
-            ))}
-          </div>
-        )}
+        {/* Desktop: 2 column x 3 row grid */}
+        <div className="hidden lg:grid grid-cols-2 gap-3">
+          {gridImages.slice(0, 6).map((img, index) => (
+            <button
+              key={index}
+              onClick={() => setSelectedImage(index)}
+              className={`relative bg-bg-card rounded-2xl overflow-hidden aspect-square border-2 transition-all ${
+                selectedImage === index ? 'border-blue' : 'border-transparent'
+              }`}
+            >
+              <Image
+                src={img}
+                alt={`${product.title} view ${index + 1}`}
+                fill
+                sizes="25vw"
+                className="object-cover"
+                priority={index === 0}
+              />
+              {index === 0 && (
+                <span className="absolute top-3 left-3 bg-blue text-white text-[10px] font-bold uppercase px-2.5 py-1 rounded-md">
+                  New Release
+                </span>
+              )}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Product info */}
@@ -125,12 +156,12 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               Size Chart
             </button>
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="grid grid-cols-6 sm:grid-cols-8 lg:grid-cols-6 gap-2">
             {sizes.map((size) => (
               <button
                 key={size}
                 onClick={() => setSelectedSize(size)}
-                className={`w-12 h-12 rounded-lg border text-sm font-medium transition-all ${
+                className={`h-12 rounded-lg border text-sm font-medium transition-all ${
                   selectedSize === size
                     ? 'bg-dark text-white border-dark'
                     : 'border-border text-dark hover:border-dark'
@@ -163,7 +194,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
           <button
             onClick={handleBuyNow}
             disabled={!selectedSize}
-            className="w-full bg-blue text-white text-sm font-bold uppercase tracking-wide py-4 rounded-lg hover:bg-blue-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-yellow text-dark text-sm font-bold uppercase tracking-wide py-4 rounded-lg hover:opacity-90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Buy it Now
           </button>
@@ -173,10 +204,10 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
         <div className="border-t border-border pt-6">
           <h3 className="text-sm font-bold text-dark uppercase mb-3">About the Product</h3>
           <p className="text-sm text-text-secondary mb-1">
-            {product.category?.name || 'General'}
+            {colors.find((c) => c.value === selectedColor)?.name || 'Shadow Navy'} / Army Green
           </p>
           <p className="text-sm text-text-secondary leading-relaxed mt-3">
-            {product.description}
+            {product.description || 'This product is excluded from all promotional discounts and offers.'}
           </p>
           <ul className="mt-3 space-y-1.5">
             <li className="text-sm text-text-secondary flex items-start gap-2">

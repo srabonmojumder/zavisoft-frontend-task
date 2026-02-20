@@ -16,7 +16,7 @@ export default function CartPage() {
   const { products } = useProducts();
 
   return (
-    <div className="min-h-screen bg-bg">
+    <div className="min-h-screen bg-[#E7EFE6]">
       <Header />
 
       <main>

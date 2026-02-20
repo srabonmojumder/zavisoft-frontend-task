@@ -38,9 +38,9 @@ export default function Newsletter() {
               </button>
             </form>
           </div>
-          <div className="hidden md:block">
-            <h3 className="text-5xl lg:text-7xl font-black text-white tracking-tight">
-              KICKS<span className="text-yellow text-2xl align-top">+</span>
+          <div className="w-full md:w-auto text-center md:text-right">
+            <h3 className="text-4xl md:text-5xl lg:text-7xl font-black text-white tracking-tight">
+              KICKS<span className="text-yellow text-lg md:text-2xl align-top">+</span>
             </h3>
           </div>
         </div>

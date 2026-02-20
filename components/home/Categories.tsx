@@ -21,7 +21,8 @@ export default function Categories({ categories }: CategoriesProps) {
   const goPrev = () => setCurrentIndex((prev) => Math.max(prev - 1, 0));
 
   return (
-    <section className="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12 py-10 md:py-16">
+    <section className="bg-bg-card py-10 md:py-16">
+      <div className="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12">
       {/* Section header */}
       <div className="flex items-center justify-between mb-8">
         <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-dark uppercase">
@@ -76,6 +77,7 @@ export default function Categories({ categories }: CategoriesProps) {
             </div>
           </Link>
         ))}
+      </div>
       </div>
     </section>
   );

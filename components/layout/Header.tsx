@@ -11,10 +11,11 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-white">
-      <div className="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12">
-        <nav className="flex items-center justify-between h-16">
-          {/* Left nav - Desktop */}
-          <div className="hidden lg:flex items-center gap-6">
+      <div className="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12 py-3">
+        {/* Desktop Nav - Pill shaped */}
+        <nav className="hidden lg:flex items-center justify-between border border-border rounded-full px-6 h-14">
+          {/* Left nav */}
+          <div className="flex items-center gap-6">
             <Link
               href="/"
               className="flex items-center gap-1 text-sm font-semibold text-dark hover:text-yellow transition-colors"
@@ -29,28 +30,19 @@ export default function Header() {
             </button>
           </div>
 
-          {/* Mobile menu button */}
-          <button
-            className="lg:hidden p-1"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
-
           {/* Logo - Center */}
-          <Link href="/" className="absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0">
-            <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight text-dark">
+          <Link href="/" className="absolute left-1/2 -translate-x-1/2">
+            <h1 className="text-2xl font-extrabold tracking-tight text-dark">
               KICKS
             </h1>
           </Link>
 
           {/* Right nav */}
-          <div className="flex items-center gap-3 md:gap-4">
-            <button className="hidden md:flex p-2 hover:bg-gray-100 rounded-full transition-colors" aria-label="Search">
+          <div className="flex items-center gap-3">
+            <button className="p-2 hover:bg-gray-100 rounded-full transition-colors" aria-label="Search">
               <Search className="w-5 h-5 text-dark" />
             </button>
-            <Link href="/" className="hidden md:flex p-2 hover:bg-gray-100 rounded-full transition-colors" aria-label="Account">
+            <Link href="/" className="p-2 hover:bg-gray-100 rounded-full transition-colors" aria-label="Account">
               <User className="w-5 h-5 text-dark" />
             </Link>
             <Link
@@ -59,11 +51,45 @@ export default function Header() {
               aria-label="Cart"
             >
               <ShoppingBag className="w-5 h-5 text-dark" />
-              {totalItems > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 w-5 h-5 bg-yellow text-dark text-[10px] font-bold rounded-full flex items-center justify-center">
-                  {totalItems}
-                </span>
-              )}
+              <span className="absolute -top-0.5 -right-0.5 w-5 h-5 bg-yellow text-dark text-[10px] font-bold rounded-full flex items-center justify-center">
+                {totalItems}
+              </span>
+            </Link>
+          </div>
+        </nav>
+
+        {/* Mobile Nav */}
+        <nav className="flex lg:hidden items-center justify-between h-12">
+          {/* Hamburger */}
+          <button
+            className="p-1"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+
+          {/* Logo - Center */}
+          <Link href="/" className="absolute left-1/2 -translate-x-1/2">
+            <h1 className="text-xl font-extrabold tracking-tight text-dark italic">
+              KICKS
+            </h1>
+          </Link>
+
+          {/* Right icons */}
+          <div className="flex items-center gap-2">
+            <Link href="/" className="p-1.5" aria-label="Account">
+              <User className="w-5 h-5 text-dark" />
+            </Link>
+            <Link
+              href="/cart"
+              className="relative p-1.5"
+              aria-label="Cart"
+            >
+              <ShoppingBag className="w-5 h-5 text-dark" />
+              <span className="absolute -top-0.5 -right-0.5 w-5 h-5 bg-yellow text-dark text-[10px] font-bold rounded-full flex items-center justify-center">
+                {totalItems}
+              </span>
             </Link>
           </div>
         </nav>

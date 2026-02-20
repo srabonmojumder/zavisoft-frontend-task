@@ -14,7 +14,7 @@ export default function Footer() {
             {/* About us */}
             <div>
               <h3 className="text-yellow font-bold text-lg mb-4">About us</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">
+              <p className="text-[#E7E7E3] font-semibold text-sm leading-relaxed">
                 We are the biggest hyperstore in the universe. We got you all cover with our exclusive
                 collections and latest drops.
               </p>
@@ -28,7 +28,7 @@ export default function Footer() {
                   <li key={cat}>
                     <Link
                       href="/"
-                      className="text-gray-400 text-sm hover:text-white transition-colors"
+                      className="text-[#E7E7E3] font-semibold text-sm hover:text-white transition-colors"
                     >
                       {cat}
                     </Link>
@@ -45,7 +45,7 @@ export default function Footer() {
                   <li key={item}>
                     <Link
                       href="/"
-                      className="text-gray-400 text-sm hover:text-white transition-colors"
+                      className="text-[#E7E7E3] font-semibold text-sm hover:text-white transition-colors"
                     >
                       {item}
                     </Link>
@@ -79,7 +79,7 @@ export default function Footer() {
 
         {/* Large KICKS logo */}
         <div className="overflow-hidden px-8 md:px-14 lg:px-20">
-          <h2 className="text-[100px] sm:text-[140px] md:text-[200px] lg:text-[280px] font-black leading-[0.75] tracking-tighter text-white select-none translate-y-[15%]">
+          <h2 className="text-[100px] sm:text-[140px] md:text-[200px] lg:text-[320px] font-black leading-[0.75] tracking-tighter text-white select-none translate-y-[35%]">
             KICKS
           </h2>
         </div>

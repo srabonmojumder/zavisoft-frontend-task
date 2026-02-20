@@ -1,127 +1,68 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import Image from "next/image";
-import Link from "next/link";
-import { Product } from "@/types";
-import { getProductById } from "@/lib/api";
-import Loader from "@/components/Loader";
-import ErrorState from "@/components/ErrorState";
+import { useEffect, useState, use } from 'react';
+import { Product } from '@/types';
+import { getProductById, getProducts } from '@/services/productService';
+import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
+import Newsletter from '@/components/layout/Newsletter';
+import ProductDetails from '@/components/product/ProductDetails';
+import YouMayAlsoLike from '@/components/product/YouMayAlsoLike';
+import Loader from '@/components/ui/Loader';
+import ErrorState from '@/components/ui/ErrorState';
 
-function sanitizeImageUrl(url: string): string {
-  const cleaned = url.replace(/^[\["]+|[\]"]+$/g, "");
-  try {
-    new URL(cleaned);
-    return cleaned;
-  } catch {
-    return "/placeholder.svg";
-  }
-}
-
-export default function ProductDetailPage() {
-  const params = useParams();
+export default function ProductPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params);
   const [product, setProduct] = useState<Product | null>(null);
+  const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [activeImage, setActiveImage] = useState(0);
 
   useEffect(() => {
-    async function fetchProduct() {
-      const id = Number(params.id);
-      if (isNaN(id)) {
-        setError("Invalid product ID");
-        setLoading(false);
-        return;
-      }
-
+    async function fetchData() {
       try {
-        const data = await getProductById(id);
-        setProduct(data);
-      } catch {
-        setError("Could not load this product. Please try again.");
+        setLoading(true);
+        setError(null);
+        const productId = Number(id);
+        const [productData, allProducts] = await Promise.all([
+          getProductById(productId),
+          getProducts(10),
+        ]);
+        setProduct(productData);
+        setRelatedProducts(allProducts.filter((p) => p.id !== productId).slice(0, 8));
+      } catch (err) {
+        const message = err instanceof Error ? err.message : 'Failed to load product';
+        setError(message);
       } finally {
         setLoading(false);
       }
     }
-
-    fetchProduct();
-  }, [params.id]);
-
-  if (loading) return <Loader />;
-  if (error) return <ErrorState message={error} />;
-  if (!product) return <ErrorState message="Product not found" />;
-
-  const images = product.images.map(sanitizeImageUrl);
+    fetchData();
+  }, [id]);
 
   return (
-    <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      <Link
-        href="/"
-        className="mb-6 inline-flex items-center gap-1 text-sm text-gray-500 transition-colors hover:text-gray-900"
-      >
-        &larr; Back to products
-      </Link>
+    <div className="min-h-screen bg-bg">
+      <Header />
 
-      <div className="mt-4 grid gap-8 md:grid-cols-2">
-        {/* Image gallery */}
-        <div>
-          <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-gray-100">
-            <Image
-              src={images[activeImage] || "/placeholder.svg"}
-              alt={product.title}
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover"
-              priority
-            />
+      {loading ? (
+        <Loader />
+      ) : error || !product ? (
+        <ErrorState message={error || 'Product not found'} />
+      ) : (
+        <main>
+          <div className="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12 py-6 md:py-10">
+            <ProductDetails product={product} />
           </div>
-          {images.length > 1 && (
-            <div className="mt-4 flex gap-3">
-              {images.map((src, i) => (
-                <button
-                  key={i}
-                  onClick={() => setActiveImage(i)}
-                  className={`relative h-16 w-16 overflow-hidden rounded-lg border-2 transition-colors ${
-                    i === activeImage
-                      ? "border-gray-900"
-                      : "border-transparent hover:border-gray-300"
-                  }`}
-                >
-                  <Image
-                    src={src}
-                    alt={`${product.title} thumbnail ${i + 1}`}
-                    fill
-                    sizes="64px"
-                    className="object-cover"
-                  />
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
 
-        {/* Product info */}
-        <div className="flex flex-col">
-          <span className="mb-2 w-fit rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600">
-            {product.category.name}
-          </span>
-          <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">
-            {product.title}
-          </h1>
-          <p className="mt-4 text-3xl font-bold text-gray-900">
-            ${product.price}
-          </p>
-          <div className="mt-6">
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-gray-500">
-              Description
-            </h2>
-            <p className="mt-2 leading-relaxed text-gray-600">
-              {product.description}
-            </p>
+          <YouMayAlsoLike products={relatedProducts} />
+
+          <div className="py-6 md:py-10">
+            <Newsletter />
           </div>
-        </div>
-      </div>
-    </main>
+        </main>
+      )}
+
+      <Footer />
+    </div>
   );
 }

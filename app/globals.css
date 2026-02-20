@@ -1,19 +1,77 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f9fafb;
-  --foreground: #111827;
+  --color-dark: #232321;
+  --color-dark-secondary: #333333;
+  --color-yellow: #FFA52F;
+  --color-blue: #4A69E2;
+  --color-blue-dark: #3B5BDB;
+  --color-bg: #FAFAFA;
+  --color-bg-card: #FFFFFF;
+  --color-text: #232321;
+  --color-text-secondary: #70706E;
+  --color-text-light: #656565;
+  --color-border: #E7E7E3;
+  --color-star: #FFC633;
+  --color-badge-new: #4A69E2;
+  --color-badge-sale: #FFA52F;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-dark: var(--color-dark);
+  --color-dark-secondary: var(--color-dark-secondary);
+  --color-yellow: var(--color-yellow);
+  --color-blue: var(--color-blue);
+  --color-blue-dark: var(--color-blue-dark);
+  --color-bg: var(--color-bg);
+  --color-bg-card: var(--color-bg-card);
+  --color-text: var(--color-text);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-light: var(--color-text-light);
+  --color-border: var(--color-border);
+  --color-star: var(--color-star);
+  --color-badge-new: var(--color-badge-new);
+  --color-badge-sale: var(--color-badge-sale);
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-display: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), system-ui, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Hide scrollbar for carousels */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Custom checkbox/radio styles */
+.size-btn {
+  @apply flex items-center justify-center w-10 h-10 border border-border rounded-lg text-sm font-medium cursor-pointer transition-all duration-200;
+}
+
+.size-btn:hover {
+  @apply border-dark;
+}
+
+.size-btn.active {
+  @apply bg-dark text-white border-dark;
+}
+
+.size-btn.disabled {
+  @apply opacity-40 cursor-not-allowed;
 }

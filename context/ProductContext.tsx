@@ -1,14 +1,9 @@
-"use client";
+'use client';
 
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  ReactNode,
-} from "react";
-import { Product, Category } from "@/types";
-import { getProducts, getCategories } from "@/lib/api";
+import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import { Product, Category } from '@/types';
+import { getProducts } from '@/services/productService';
+import { getCategories } from '@/services/categoryService';
 
 interface ProductContextValue {
   products: Product[];
@@ -29,20 +24,18 @@ export function ProductProvider({ children }: { children: ReactNode }) {
     async function fetchData() {
       try {
         const [productData, categoryData] = await Promise.all([
-          getProducts(),
+          getProducts(20),
           getCategories(),
         ]);
         setProducts(productData);
         setCategories(categoryData);
       } catch (err) {
-        const message =
-          err instanceof Error ? err.message : "Failed to load data";
+        const message = err instanceof Error ? err.message : 'Failed to load data';
         setError(message);
       } finally {
         setLoading(false);
       }
     }
-
     fetchData();
   }, []);
 
@@ -56,7 +49,7 @@ export function ProductProvider({ children }: { children: ReactNode }) {
 export function useProducts() {
   const context = useContext(ProductContext);
   if (!context) {
-    throw new Error("useProducts must be used within a ProductProvider");
+    throw new Error('useProducts must be used within a ProductProvider');
   }
   return context;
 }

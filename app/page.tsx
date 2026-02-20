@@ -1,39 +1,40 @@
-"use client";
+'use client';
 
-import { useProducts } from "@/context/ProductContext";
-import CategoryList from "@/components/CategoryList";
-import ProductGrid from "@/components/ProductGrid";
-import Loader from "@/components/Loader";
-import ErrorState from "@/components/ErrorState";
+import { useProducts } from '@/context/ProductContext';
+import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
+import Newsletter from '@/components/layout/Newsletter';
+import Hero from '@/components/home/Hero';
+import NewDrops from '@/components/home/NewDrops';
+import Categories from '@/components/home/Categories';
+import Reviews from '@/components/home/Reviews';
+import Loader from '@/components/ui/Loader';
+import ErrorState from '@/components/ui/ErrorState';
 
-export default function HomePage() {
+export default function Home() {
   const { products, categories, loading, error } = useProducts();
 
-  if (loading) return <Loader />;
-  if (error) return <ErrorState message={error} />;
-
   return (
-    <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      <header className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">
-          ShopZone
-        </h1>
-        <p className="mt-1 text-gray-500">Discover products you&apos;ll love</p>
-      </header>
+    <div className="min-h-screen bg-bg">
+      <Header />
 
-      <section className="mb-10">
-        <h2 className="mb-4 text-lg font-semibold text-gray-800">
-          Browse Categories
-        </h2>
-        <CategoryList categories={categories} />
-      </section>
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <ErrorState message={error} onRetry={() => window.location.reload()} />
+      ) : (
+        <main>
+          <Hero />
+          <NewDrops products={products} />
+          <Categories categories={categories} />
+          <Reviews />
+          <div className="py-6 md:py-10">
+            <Newsletter />
+          </div>
+        </main>
+      )}
 
-      <section>
-        <h2 className="mb-4 text-lg font-semibold text-gray-800">
-          All Products
-        </h2>
-        <ProductGrid products={products} />
-      </section>
-    </main>
+      <Footer />
+    </div>
   );
 }

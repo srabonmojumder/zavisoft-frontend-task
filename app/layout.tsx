@@ -1,17 +1,17 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import { ProductProvider } from "@/context/ProductContext";
-import "./globals.css";
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import { ProductProvider } from '@/context/ProductContext';
+import { CartProvider } from '@/context/CartContext';
+import './globals.css';
 
 const inter = Inter({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+  subsets: ['latin'],
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
-  title: "ShopZone — Discover Top Products",
-  description:
-    "Browse our curated collection of products across multiple categories.",
+  title: 'KICKS — Premium Sneakers & Shoes',
+  description: 'Discover the latest drops in sneakers and shoes. Shop our exclusive collections.',
 };
 
 export default function RootLayout({
@@ -21,8 +21,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} antialiased`}>
-        <ProductProvider>{children}</ProductProvider>
+      <body className={`${inter.className} antialiased`}>
+        <ProductProvider>
+          <CartProvider>{children}</CartProvider>
+        </ProductProvider>
       </body>
     </html>
   );

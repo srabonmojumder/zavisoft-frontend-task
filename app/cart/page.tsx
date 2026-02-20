@@ -2,9 +2,6 @@
 
 import { useProducts } from '@/context/ProductContext';
 import { useCart } from '@/context/CartContext';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
-import Newsletter from '@/components/layout/Newsletter';
 import CartItemComponent from '@/components/cart/CartItem';
 import OrderSummary from '@/components/cart/OrderSummary';
 import YouMayAlsoLike from '@/components/product/YouMayAlsoLike';
@@ -17,8 +14,6 @@ export default function CartPage() {
 
   return (
     <div className="min-h-screen bg-bg-cart">
-      <Header />
-
       <main>
         {/* Promo banner */}
         <div className="container pt-6 md:pt-10">
@@ -69,13 +64,7 @@ export default function CartPage() {
 
         {/* You may also like */}
         <YouMayAlsoLike products={products.slice(0, 8)} />
-
-        <div className="py-6 md:py-10">
-          <Newsletter />
-        </div>
       </main>
-
-      <Footer />
     </div>
   );
 }

@@ -3,9 +3,6 @@
 import { useEffect, useState, use } from 'react';
 import { Product } from '@/types';
 import { getProductById, getProducts } from '@/services/productService';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
-import Newsletter from '@/components/layout/Newsletter';
 import ProductDetails from '@/components/product/ProductDetails';
 import YouMayAlsoLike from '@/components/product/YouMayAlsoLike';
 import Loader from '@/components/ui/Loader';
@@ -42,8 +39,6 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
 
   return (
     <div className="min-h-screen bg-bg">
-      <Header />
-
       {loading ? (
         <Loader />
       ) : error || !product ? (
@@ -55,14 +50,8 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
           </div>
 
           <YouMayAlsoLike products={relatedProducts} />
-
-          <div className="py-6 md:py-10">
-            <Newsletter />
-          </div>
         </main>
       )}
-
-      <Footer />
     </div>
   );
 }

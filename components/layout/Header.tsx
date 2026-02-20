@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { Search, User, ShoppingBag, Menu, X, ChevronDown } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
-
+import Image from 'next/image';
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { totalItems } = useCart();
@@ -36,7 +36,13 @@ export default function Header() {
 
           {/* Logo - Absolutely centered */}
           <Link href="/" className="absolute left-1/2 -translate-x-1/2">
-            <span className="text-[28px] font-black tracking-tighter text-dark">KICKS</span>
+            <Image
+              src="/logo/header-logo.png"
+              alt="hero"
+              fill
+              className="object-cover"
+              priority
+            />
           </Link>
 
           {/* Right nav icons */}

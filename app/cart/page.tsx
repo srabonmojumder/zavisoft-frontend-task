@@ -16,12 +16,12 @@ export default function CartPage() {
   const { products } = useProducts();
 
   return (
-    <div className="min-h-screen bg-[#E7EFE6]">
+    <div className="min-h-screen bg-bg-cart">
       <Header />
 
       <main>
         {/* Promo banner */}
-        <div className="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12 pt-6 md:pt-10">
+        <div className="container pt-6 md:pt-10">
           <div className="mb-2">
             <h2 className="text-lg md:text-xl font-bold text-dark italic">Saving to celebrate</h2>
             <p className="text-xs text-text-secondary mt-1 leading-relaxed max-w-2xl">
@@ -36,7 +36,7 @@ export default function CartPage() {
         </div>
 
         {/* Cart content */}
-        <div className="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12 py-6 md:py-10">
+        <div className="container py-6 md:py-10">
           {items.length === 0 ? (
             <EmptyState
               title="Your bag is empty"
@@ -53,7 +53,7 @@ export default function CartPage() {
                   </p>
                   <div>
                     {items.map((item) => (
-                      <CartItemComponent key={item.product.id} item={item} />
+                      <CartItemComponent key={`${item.product.id}-${item.size}-${item.color}`} item={item} />
                     ))}
                   </div>
                 </div>

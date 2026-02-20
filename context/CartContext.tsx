@@ -6,9 +6,9 @@ import { CartItem, Product } from '@/types';
 interface CartContextValue {
   items: CartItem[];
   addToCart: (product: Product, size: number, color: string) => void;
-  removeFromCart: (productId: number) => void;
-  updateQuantity: (productId: number, quantity: number) => void;
-  updateSize: (productId: number, size: number) => void;
+  removeFromCart: (productId: number, size: number, color: string) => void;
+  updateQuantity: (productId: number, size: number, color: string, quantity: number) => void;
+  updateSize: (productId: number, oldSize: number, color: string, newSize: number) => void;
   clearCart: () => void;
   totalItems: number;
   subtotal: number;
@@ -20,17 +20,19 @@ const CartContext = createContext<CartContextValue | undefined>(undefined);
 
 const DELIVERY_FEE = 6.99;
 
+function matchItem(item: CartItem, productId: number, size: number, color: string) {
+  return item.product.id === productId && item.size === size && item.color === color;
+}
+
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
 
   const addToCart = useCallback((product: Product, size: number, color: string) => {
     setItems((prev) => {
-      const existing = prev.find(
-        (item) => item.product.id === product.id && item.size === size && item.color === color
-      );
+      const existing = prev.find((item) => matchItem(item, product.id, size, color));
       if (existing) {
         return prev.map((item) =>
-          item.product.id === product.id && item.size === size && item.color === color
+          matchItem(item, product.id, size, color)
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );
@@ -39,23 +41,23 @@ export function CartProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
-  const removeFromCart = useCallback((productId: number) => {
-    setItems((prev) => prev.filter((item) => item.product.id !== productId));
+  const removeFromCart = useCallback((productId: number, size: number, color: string) => {
+    setItems((prev) => prev.filter((item) => !matchItem(item, productId, size, color)));
   }, []);
 
-  const updateQuantity = useCallback((productId: number, quantity: number) => {
+  const updateQuantity = useCallback((productId: number, size: number, color: string, quantity: number) => {
     if (quantity < 1) return;
     setItems((prev) =>
       prev.map((item) =>
-        item.product.id === productId ? { ...item, quantity } : item
+        matchItem(item, productId, size, color) ? { ...item, quantity } : item
       )
     );
   }, []);
 
-  const updateSize = useCallback((productId: number, size: number) => {
+  const updateSize = useCallback((productId: number, oldSize: number, color: string, newSize: number) => {
     setItems((prev) =>
       prev.map((item) =>
-        item.product.id === productId ? { ...item, size } : item
+        matchItem(item, productId, oldSize, color) ? { ...item, size: newSize } : item
       )
     );
   }, []);

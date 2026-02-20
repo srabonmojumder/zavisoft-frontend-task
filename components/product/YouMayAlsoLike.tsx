@@ -24,7 +24,7 @@ export default function YouMayAlsoLike({ products }: YouMayAlsoLikeProps) {
   if (products.length === 0) return null;
 
   return (
-    <section className="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12 py-10 md:py-16">
+    <section className="container py-10 md:py-16">
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <h2 className="text-2xl md:text-3xl font-bold text-dark uppercase">

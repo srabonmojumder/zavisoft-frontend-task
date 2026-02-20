@@ -50,7 +50,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
         <ErrorState message={error || 'Product not found'} />
       ) : (
         <main>
-          <div className="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12 py-6 md:py-10">
+          <div className="container py-6 md:py-10">
             <ProductDetails product={product} />
           </div>
 

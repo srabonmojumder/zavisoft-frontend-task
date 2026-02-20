@@ -10,10 +10,10 @@ export default function EmptyState({
   description = 'Try adjusting your search or filters.',
 }: EmptyStateProps) {
   return (
-    <div className="flex flex-col items-center justify-center py-20 gap-3">
+    <div className="flex flex-col items-center justify-center py-20 gap-3 bg-white rounded-2xl">
       <PackageOpen className="w-12 h-12 text-text-secondary" />
-      <h3 className="text-lg font-semibold text-text">{title}</h3>
-      <p className="text-text-secondary">{description}</p>
+      <h3 className="text-lg font-semibold text-dark">{title}</h3>
+      <p className="text-text-secondary text-sm">{description}</p>
     </div>
   );
 }

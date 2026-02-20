@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import { Heart, Trash2, ChevronDown } from 'lucide-react';
 import { CartItem as CartItemType } from '@/types';
@@ -12,6 +13,7 @@ interface CartItemProps {
 
 export default function CartItem({ item }: CartItemProps) {
   const { removeFromCart, updateQuantity, updateSize } = useCart();
+  const [imgError, setImgError] = useState(false);
   const imageUrl = sanitizeImageUrl(item.product.images?.[0] || '');
 
   return (
@@ -19,11 +21,12 @@ export default function CartItem({ item }: CartItemProps) {
       {/* Product image */}
       <div className="relative w-24 h-24 sm:w-32 sm:h-32 bg-bg-card rounded-xl overflow-hidden flex-shrink-0">
         <Image
-          src={imageUrl}
+          src={imgError ? '/placeholder.svg' : imageUrl}
           alt={item.product.title}
           fill
           sizes="128px"
           className="object-cover"
+          onError={() => setImgError(true)}
         />
       </div>
 
@@ -49,7 +52,7 @@ export default function CartItem({ item }: CartItemProps) {
           <div className="relative">
             <select
               value={item.size}
-              onChange={(e) => updateSize(item.product.id, Number(e.target.value))}
+              onChange={(e) => updateSize(item.product.id, item.size, item.color, Number(e.target.value))}
               className="appearance-none bg-white border border-border rounded-lg px-3 py-1.5 pr-7 text-xs font-medium text-dark cursor-pointer"
             >
               {[38, 39, 40, 41, 42, 43, 44, 45, 46, 47].map((s) => (
@@ -64,7 +67,7 @@ export default function CartItem({ item }: CartItemProps) {
           <div className="relative">
             <select
               value={item.quantity}
-              onChange={(e) => updateQuantity(item.product.id, Number(e.target.value))}
+              onChange={(e) => updateQuantity(item.product.id, item.size, item.color, Number(e.target.value))}
               className="appearance-none bg-white border border-border rounded-lg px-3 py-1.5 pr-7 text-xs font-medium text-dark cursor-pointer"
             >
               {[1, 2, 3, 4, 5].map((q) => (
@@ -86,7 +89,7 @@ export default function CartItem({ item }: CartItemProps) {
             <Heart className="w-4 h-4 text-dark" />
           </button>
           <button
-            onClick={() => removeFromCart(item.product.id)}
+            onClick={() => removeFromCart(item.product.id, item.size, item.color)}
             className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors"
             aria-label="Remove from cart"
           >

@@ -2,10 +2,23 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { Heart } from 'lucide-react';
 import { Product } from '@/types';
 import { sanitizeImageUrl, formatPrice } from '@/lib/utils';
 import { useCart } from '@/context/CartContext';
+
+function SafeImage({ src, alt, ...props }: React.ComponentProps<typeof Image>) {
+  const [error, setError] = useState(false);
+  return (
+    <Image
+      {...props}
+      src={error ? '/placeholder.svg' : src}
+      alt={alt}
+      onError={() => setError(true)}
+    />
+  );
+}
 
 interface ProductDetailsProps {
   product: Product;
@@ -22,6 +35,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
   const [selectedSize, setSelectedSize] = useState<number | null>(null);
   const [selectedColor, setSelectedColor] = useState(colors[0].value);
   const { addToCart } = useCart();
+  const router = useRouter();
 
   const images = product.images?.map(sanitizeImageUrl).filter((url) => url !== '/placeholder.svg') || [];
   if (images.length === 0) images.push('/placeholder.svg');
@@ -40,7 +54,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
   const handleBuyNow = () => {
     if (!selectedSize) return;
     handleAddToCart();
-    window.location.href = '/cart';
+    router.push('/cart');
   };
 
   return (
@@ -50,7 +64,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
         {/* Mobile: Main image + thumbnails */}
         <div className="lg:hidden space-y-3">
           <div className="relative bg-bg-card rounded-2xl overflow-hidden aspect-square">
-            <Image
+            <SafeImage
               src={gridImages[selectedImage] || '/placeholder.svg'}
               alt={product.title}
               fill
@@ -72,7 +86,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                     selectedImage === index ? 'border-blue' : 'border-transparent'
                   }`}
                 >
-                  <Image
+                  <SafeImage
                     src={img}
                     alt={`${product.title} view ${index + 1}`}
                     fill
@@ -95,7 +109,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                 selectedImage === index ? 'border-blue' : 'border-transparent'
               }`}
             >
-              <Image
+              <SafeImage
                 src={img}
                 alt={`${product.title} view ${index + 1}`}
                 fill

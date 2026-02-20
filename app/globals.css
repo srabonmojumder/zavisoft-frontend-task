@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-:root {
+@theme inline {
   --color-dark: #232321;
   --color-dark-secondary: #333333;
   --color-yellow: #FFA52F;
@@ -15,23 +15,7 @@
   --color-star: #FFC633;
   --color-badge-new: #4A69E2;
   --color-badge-sale: #FFA52F;
-}
-
-@theme inline {
-  --color-dark: var(--color-dark);
-  --color-dark-secondary: var(--color-dark-secondary);
-  --color-yellow: var(--color-yellow);
-  --color-blue: var(--color-blue);
-  --color-blue-dark: var(--color-blue-dark);
-  --color-bg: var(--color-bg);
-  --color-bg-card: var(--color-bg-card);
-  --color-text: var(--color-text);
-  --color-text-secondary: var(--color-text-secondary);
-  --color-text-light: var(--color-text-light);
-  --color-border: var(--color-border);
-  --color-star: var(--color-star);
-  --color-badge-new: var(--color-badge-new);
-  --color-badge-sale: var(--color-badge-sale);
+  --color-bg-cart: #E7EFE6;
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
   --font-display: "Inter", system-ui, -apple-system, sans-serif;
 }
@@ -48,6 +32,29 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+  width: 100%;
+  max-width: 1320px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
 }
 
 /* Hide scrollbar for carousels */

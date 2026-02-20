@@ -7,7 +7,7 @@ const company = ['About', 'Contact', 'Blogs'];
 export default function Footer() {
   return (
     <footer className="bg-dark text-white">
-      <div className="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12 py-12 md:py-16">
+      <div className="container py-12 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* About us */}
           <div>
@@ -76,9 +76,9 @@ export default function Footer() {
       </div>
 
       {/* Large KICKS logo */}
-      <div className="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12 pb-4">
+      <div className="container pb-4">
         <div className="overflow-hidden">
-          <h2 className="text-[80px] sm:text-[120px] md:text-[160px] lg:text-[200px] font-black leading-none tracking-tighter text-white select-none">
+          <h2 className="text-[80px] sm:text-[120px] md:text-[160px] lg:text-[200px] font-black leading-none tracking-tighter text-white/10 select-none">
             KICKS
           </h2>
         </div>

@@ -38,9 +38,10 @@ export default function Header() {
           <Link href="/" className="absolute left-1/2 -translate-x-1/2">
             <Image
               src="/logo/header-logo.png"
-              alt="hero"
-              fill
-              className="object-cover"
+              alt="KICKS logo"
+              width={120}
+              height={40}
+              className="object-contain"
               priority
             />
           </Link>

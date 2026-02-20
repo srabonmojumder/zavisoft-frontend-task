@@ -26,8 +26,8 @@ export default function YouMayAlsoLike({ products }: YouMayAlsoLikeProps) {
   return (
     <section className="container py-10 md:py-16">
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
-        <h2 className="text-2xl md:text-3xl font-bold text-dark uppercase">
+      <div className="flex items-center justify-between mb-8 md:mb-10">
+        <h2 className="text-[40px] md:text-[56px] lg:text-[74px] font-semibold text-dark uppercase leading-[0.95] tracking-tight">
           You may also like
         </h2>
         <div className="flex gap-2">
@@ -48,34 +48,15 @@ export default function YouMayAlsoLike({ products }: YouMayAlsoLikeProps) {
         </div>
       </div>
 
-      {/* Mobile: 2-column grid */}
-      <div className="grid grid-cols-2 gap-4 md:hidden">
-        {products.slice(0, 4).map((product) => (
-          <ProductCard key={product.id} product={product} isNew />
-        ))}
-      </div>
-
-      {/* Desktop: Scrollable carousel */}
+      {/* Scrollable product carousel - consistent on all screens */}
       <div
         ref={scrollRef}
-        className="hidden md:flex gap-6 overflow-x-auto hide-scrollbar pb-4"
+        className="flex items-stretch gap-4 md:gap-6 overflow-x-auto hide-scrollbar pb-4 -mx-4 px-4 md:mx-0 md:px-0"
       >
         {products.map((product) => (
-          <div key={product.id} className="min-w-[260px] lg:min-w-[280px] flex-shrink-0">
+          <div key={product.id} className="min-w-[200px] sm:min-w-[220px] md:min-w-[260px] lg:min-w-[280px] flex-shrink-0 w-[45vw] sm:w-auto">
             <ProductCard product={product} isNew />
           </div>
-        ))}
-      </div>
-
-      {/* Scroll indicators */}
-      <div className="hidden md:flex justify-center gap-1.5 mt-6">
-        {Array.from({ length: Math.min(4, Math.ceil(products.length / 4)) }).map((_, i) => (
-          <div
-            key={i}
-            className={`h-1 rounded-full transition-all ${
-              i === 0 ? 'w-6 bg-blue' : 'w-6 bg-border'
-            }`}
-          />
         ))}
       </div>
     </section>

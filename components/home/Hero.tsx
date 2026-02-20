@@ -6,7 +6,7 @@ export default function Hero() {
     <section className="container pt-6 md:pt-8">
 
       {/* DO IT RIGHT heading */}
-      <h1 className="text-[72px] sm:text-[100px] md:text-[130px] lg:text-[160px] xl:text-[210px] font-black leading-[0.85] tracking-[-0.04em] uppercase mb-4 md:mb-6">
+      <h1 className="text-[61px] sm:text-[100px] md:text-[130px] lg:text-[160px] xl:text-[210px] font-black leading-[0.85] tracking-[-0.04em] uppercase mb-4 md:mb-6">
         <span className="text-dark">DO IT </span>
         <span className="text-blue">RIGHT</span>
       </h1>

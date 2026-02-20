@@ -18,7 +18,7 @@ export default function ProductCard({ product, isNew = true, discount }: Product
   const displayUrl = imgError ? '/placeholder.svg' : imageUrl;
 
   return (
-    <div className="group flex flex-col">
+    <div className="group flex flex-col h-full">
 
       {/* Image container */}
       <div className="relative bg-[#E7E7E7] rounded-[28px] overflow-hidden aspect-[3/4] mb-5 border-[8px] border-white">
@@ -50,7 +50,7 @@ export default function ProductCard({ product, isNew = true, discount }: Product
       </div>
 
       {/* Product title */}
-      <h3 className="text-base sm:text-lg md:text-xl font-black text-dark uppercase leading-tight mb-4 line-clamp-2 tracking-wide">
+      <h3 className="text-base sm:text-lg md:text-xl font-black text-dark uppercase leading-tight mb-4 min-h-[2.5em] line-clamp-2 tracking-wide">
         {product.title}
       </h3>
 

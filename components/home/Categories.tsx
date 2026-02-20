@@ -78,7 +78,7 @@ export default function Categories({ categories }: CategoriesProps) {
       </div>
 
         {/* Categories grid */}
-        <div className="grid pb-[25px] grid-cols-1 md:grid-cols-2 gap-6 md:gap-8  bg-white ml-[130px] rounded-tl-[51px]">
+        <div className="grid pb-[25px] grid-cols-1 md:grid-cols-2 gap-6 md:gap-8  bg-white md:ml-[130px] rounded-tl-[51px]">
           {displayCategories.slice(currentIndex, currentIndex + itemsPerPage).map((category, index) => (
             <Link
               key={category.id}

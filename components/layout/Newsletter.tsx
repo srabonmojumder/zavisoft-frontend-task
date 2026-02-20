@@ -11,7 +11,7 @@ export default function Newsletter() {
   };
 
   return (
-    <section className="container bg-blue rounded-t-[48px] px-8 md:px-14 lg:px-20 py-10 md:py-14 md:pb-[90px]">
+    <section className="container bg-blue rounded-t-[48px] px-8 md:px-14 lg:px-20 py-10 md:py-14 !pb-[90px]">
       <div className="flex flex-col md:flex-row items-center justify-between gap-8 max-w-[1200px] mx-auto">
         <div className="flex-1">
           <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white uppercase leading-tight">

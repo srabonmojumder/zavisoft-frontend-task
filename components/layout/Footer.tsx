@@ -8,7 +8,7 @@ export default function Footer() {
   return (
     <footer>
       {/* Footer links */}
-      <div className="container bg-dark text-white rounded-t-[48px] rounded-b-[48px] md:mt-[-50px]">
+      <div className="container bg-dark text-white rounded-t-[48px] rounded-b-[48px] mt-[-50px]">
         <div className="max-w-[1200px] mx-auto px-8 md:px-14 lg:px-20 py-12 md:py-16">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
             {/* About us */}

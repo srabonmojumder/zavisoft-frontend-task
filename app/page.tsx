@@ -28,13 +28,12 @@ export default function Home() {
           <NewDrops products={products} />
           <Categories categories={categories} />
           <Reviews />
-          <div className="py-6 md:py-10">
+          <div className="px-4 md:px-8 lg:px-12 py-6 md:py-10 md:pb-0">
             <Newsletter />
+            <Footer />
           </div>
         </main>
       )}
-
-      <Footer />
     </div>
   );
 }

@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Rubik } from 'next/font/google';
 import { ProductProvider } from '@/context/ProductContext';
 import { CartProvider } from '@/context/CartContext';
 import './globals.css';
 
-const inter = Inter({
+const rubik = Rubik({
   subsets: ['latin'],
   display: 'swap',
 });
@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`} suppressHydrationWarning>
+      <body className={`${rubik.className} antialiased`} suppressHydrationWarning>
         <ProductProvider>
           <CartProvider>{children}</CartProvider>
         </ProductProvider>

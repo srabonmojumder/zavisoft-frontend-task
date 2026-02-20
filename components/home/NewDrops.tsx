@@ -16,7 +16,7 @@ export default function NewDrops({ products }: NewDropsProps) {
 
       {/* Section header */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 md:mb-10">
-        <h2 className="text-[40px] md:text-[56px] lg:text-[74px] font-black text-dark uppercase leading-[0.95] tracking-tight">
+        <h2 className="text-[40px] md:text-[56px] lg:text-[74px] font-black text-dark uppercase leading-[0.95] tracking-tight font-semibold">
           Don&apos;t miss out<br />new drops
         </h2>
         <Link

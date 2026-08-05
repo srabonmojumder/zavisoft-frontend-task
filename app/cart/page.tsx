@@ -7,46 +7,59 @@ import OrderSummary from '@/components/cart/OrderSummary';
 import YouMayAlsoLike from '@/components/product/YouMayAlsoLike';
 import EmptyState from '@/components/ui/EmptyState';
 import Link from 'next/link';
+import { Sparkles } from 'lucide-react';
 
 export default function CartPage() {
   const { items } = useCart();
   const { products } = useProducts();
 
   return (
-    <div className="min-h-screen bg-bg-cart">
+    <div className="min-h-screen bg-[#09090d]">
       <main>
-        {/* Promo banner */}
+        {/* SOLEVA VIP Promo Banner */}
         <div className="container pt-6 md:pt-10">
-          <div className="mb-2">
-            <h2 className="text-lg md:text-xl font-bold text-dark italic">Saving to celebrate</h2>
-            <p className="text-xs text-text-secondary mt-1 leading-relaxed max-w-2xl">
-              Enjoy up to 60% off thousands of styles during the End of Year sale - while supplies last. No code needed.
-            </p>
-            <p className="text-xs mt-1">
-              <Link href="/" className="font-medium text-dark underline">Join us</Link>
-              {' '}or{' '}
-              <Link href="/" className="font-medium text-dark underline">Sign-in</Link>
-            </p>
+          <div className="bg-[#12121c] border border-gold/30 rounded-3xl p-6 shadow-xl relative overflow-hidden">
+            <div className="absolute -top-12 -right-12 w-48 h-48 bg-gold/10 rounded-full blur-2xl pointer-events-none" />
+            <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+              <div>
+                <div className="flex items-center gap-2 text-gold text-xs font-bold uppercase tracking-widest mb-1">
+                  <Sparkles className="w-3.5 h-3.5" /> Studio Privilege Access
+                </div>
+                <h2 className="text-xl md:text-2xl font-black text-white uppercase tracking-tight">
+                  SOLEVA <span className="text-gold-gradient">MEMBERSHIP SAVINGS</span>
+                </h2>
+                <p className="text-xs text-muted mt-1 max-w-xl">
+                  Enjoy complimentary express worldwide delivery &amp; complimentary studio returns on all orders.
+                </p>
+              </div>
+              <div className="flex items-center gap-2">
+                <Link href="/" className="text-xs font-bold text-ink bg-gold hover:bg-gold-bright px-5 py-2.5 rounded-xl uppercase tracking-wider transition-all">
+                  Join Privilege Club
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Cart content */}
-        <div className="container py-6 md:py-10">
+        {/* Cart Content */}
+        <div className="container py-8 md:py-12">
           {items.length === 0 ? (
             <EmptyState
-              title="Your bag is empty"
-              description="Add some products to your bag to get started."
+              title="Your SOLEVA Bag is empty"
+              description="Explore our limited edition drops and add your favorite footwear."
             />
           ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-10">
-              {/* Your Bag */}
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-10">
+              {/* Items List */}
               <div className="lg:col-span-3">
-                <div className="bg-white rounded-2xl p-6">
-                  <h2 className="text-xl font-bold text-dark mb-1">Your Bag</h2>
-                  <p className="text-xs text-text-secondary mb-4">
-                    Items in your bag not reserved- check out now to make them yours.
+                <div className="bg-[#12121c] border border-white/10 rounded-3xl p-6 sm:p-8 shadow-xl">
+                  <h2 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight mb-1">
+                    YOUR BAG <span className="text-gold">({items.length})</span>
+                  </h2>
+                  <p className="text-xs text-muted mb-6">
+                    Items are reserved for a limited time during checkout.
                   </p>
-                  <div>
+                  <div className="divide-y divide-white/10">
                     {items.map((item) => (
                       <CartItemComponent key={`${item.product.id}-${item.size}-${item.color}`} item={item} />
                     ))}
@@ -54,7 +67,7 @@ export default function CartPage() {
                 </div>
               </div>
 
-              {/* Order Summary */}
+              {/* Order Summary Panel */}
               <div className="lg:col-span-2">
                 <OrderSummary />
               </div>
@@ -62,7 +75,7 @@ export default function CartPage() {
           )}
         </div>
 
-        {/* You may also like */}
+        {/* Related Products */}
         <YouMayAlsoLike products={products.slice(0, 8)} />
       </main>
     </div>

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { Heart } from 'lucide-react';
+import { Heart, Sparkles, ShoppingBag, ShieldCheck } from 'lucide-react';
 import { Product } from '@/types';
 import { sanitizeImageUrl, formatPrice } from '@/lib/utils';
 import { useCart } from '@/context/CartContext';
@@ -26,8 +26,9 @@ interface ProductDetailsProps {
 
 const sizes = [38, 39, 40, 41, 42, 43, 44, 45, 46, 47];
 const colors = [
-  { name: 'Shadow Navy', value: '#232321' },
-  { name: 'Army Green', value: '#4A5530' },
+  { name: 'Obsidian Navy', value: '#12121c' },
+  { name: 'Gold Leaf', value: '#d4af37' },
+  { name: 'Army Olive', value: '#3f4531' },
 ];
 
 export default function ProductDetails({ product }: ProductDetailsProps) {
@@ -39,7 +40,6 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
 
   const images = product.images?.map(sanitizeImageUrl).filter((url) => url !== '/placeholder.svg') || [];
   if (images.length === 0) images.push('/placeholder.svg');
-  // Fill up to 6 images for the grid by repeating existing ones
   const gridImages = [...images];
   while (gridImages.length < 6) {
     gridImages.push(images[gridImages.length % images.length]);
@@ -58,40 +58,40 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10">
-      {/* Image gallery */}
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14">
+      {/* Image Gallery */}
       <div>
-        {/* Mobile: Main image + thumbnails */}
-        <div className="lg:hidden space-y-3">
-          <div className="relative bg-bg-card rounded-2xl overflow-hidden aspect-square">
+        {/* Mobile View */}
+        <div className="lg:hidden space-y-4">
+          <div className="relative bg-[#12121c] border border-white/10 rounded-3xl overflow-hidden aspect-square">
             <SafeImage
               src={gridImages[selectedImage] || '/placeholder.svg'}
               alt={product.title}
               fill
               sizes="100vw"
-              className="object-cover"
+              className="object-contain p-4"
               priority
             />
-            <span className="absolute top-3 left-3 bg-blue text-white text-[10px] font-bold uppercase px-2.5 py-1 rounded-md">
-              New Release
+            <span className="absolute top-4 left-4 bg-gold text-ink text-[10px] font-black uppercase px-3 py-1 rounded-full">
+              SOLEVA RELEASE
             </span>
           </div>
           {images.length > 1 && (
-            <div className="flex gap-2 overflow-x-auto hide-scrollbar pb-1">
+            <div className="flex gap-3 overflow-x-auto hide-scrollbar pb-2">
               {gridImages.slice(0, 6).map((img, index) => (
                 <button
                   key={index}
                   onClick={() => setSelectedImage(index)}
-                  className={`relative w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 border-2 transition-all ${
-                    selectedImage === index ? 'border-blue' : 'border-transparent'
+                  className={`relative w-20 h-20 rounded-2xl overflow-hidden flex-shrink-0 border-2 transition-all bg-[#161622] ${
+                    selectedImage === index ? 'border-gold shadow-[0_0_15px_rgba(212,175,55,0.3)]' : 'border-white/10'
                   }`}
                 >
                   <SafeImage
                     src={img}
                     alt={`${product.title} view ${index + 1}`}
                     fill
-                    sizes="64px"
-                    className="object-cover"
+                    sizes="80px"
+                    className="object-contain p-1"
                   />
                 </button>
               ))}
@@ -99,14 +99,14 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
           )}
         </div>
 
-        {/* Desktop: 2 column x 3 row grid */}
-        <div className="hidden lg:grid grid-cols-2 gap-3">
+        {/* Desktop View — 2x3 Grid */}
+        <div className="hidden lg:grid grid-cols-2 gap-4">
           {gridImages.slice(0, 6).map((img, index) => (
             <button
               key={index}
               onClick={() => setSelectedImage(index)}
-              className={`relative bg-bg-card rounded-2xl overflow-hidden aspect-square border-2 transition-all ${
-                selectedImage === index ? 'border-blue' : 'border-transparent'
+              className={`relative bg-[#12121c] rounded-3xl overflow-hidden aspect-square border-2 transition-all group ${
+                selectedImage === index ? 'border-gold shadow-[0_0_20px_rgba(212,175,55,0.25)]' : 'border-white/10 hover:border-white/20'
               }`}
             >
               <SafeImage
@@ -114,12 +114,12 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                 alt={`${product.title} view ${index + 1}`}
                 fill
                 sizes="25vw"
-                className="object-cover"
+                className="object-contain p-4 group-hover:scale-105 transition-transform duration-500"
                 priority={index === 0}
               />
               {index === 0 && (
-                <span className="absolute top-3 left-3 bg-blue text-white text-[10px] font-bold uppercase px-2.5 py-1 rounded-md">
-                  New Release
+                <span className="absolute top-3 left-3 bg-gold text-ink text-[9px] font-black uppercase px-2.5 py-1 rounded-full">
+                  SOLEVA RELEASE
                 </span>
               )}
             </button>
@@ -127,113 +127,110 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
         </div>
       </div>
 
-      {/* Product info */}
-      <div className="space-y-6">
-        {/* Title & price */}
-        <div>
-          <span className="inline-block bg-blue text-white text-[10px] font-bold uppercase px-2.5 py-1 rounded-md mb-3">
-            New Release
-          </span>
-          <h1 className="text-2xl md:text-3xl font-bold text-dark uppercase leading-tight">
+      {/* Product Info Panel */}
+      <div className="space-y-6 bg-[#12121c] border border-white/10 rounded-3xl p-6 sm:p-8">
+
+        {/* Header */}
+        <div className="border-b border-white/10 pb-6">
+          <div className="flex items-center gap-2 text-gold text-xs font-bold uppercase tracking-widest mb-2">
+            <Sparkles className="w-3.5 h-3.5" /> Studio Authentic Edition
+          </div>
+          <h1 className="text-2xl sm:text-4xl font-black text-white uppercase leading-tight">
             {product.title}
           </h1>
-          <p className="text-xl md:text-2xl font-bold text-yellow mt-2">
+          <p className="text-2xl sm:text-3xl font-extrabold text-gold-bright mt-3">
             {formatPrice(product.price)}
           </p>
         </div>
 
-        {/* Color selector */}
+        {/* Color Palette Selector */}
         <div>
-          <h3 className="text-sm font-bold text-dark uppercase mb-3">Color</h3>
-          <div className="flex gap-2">
+          <h3 className="text-xs font-bold text-muted uppercase tracking-wider mb-3">Color Way</h3>
+          <div className="flex gap-3">
             {colors.map((color) => (
               <button
                 key={color.value}
                 onClick={() => setSelectedColor(color.value)}
-                className={`w-8 h-8 rounded-full border-2 transition-all ${
+                className={`flex items-center gap-2 px-3 py-1.5 rounded-full border text-xs font-semibold transition-all ${
                   selectedColor === color.value
-                    ? 'border-blue ring-2 ring-blue/30'
-                    : 'border-gray-300'
+                    ? 'border-gold bg-gold/10 text-gold-bright'
+                    : 'border-white/10 text-muted hover:border-white/20'
                 }`}
-                style={{ backgroundColor: color.value }}
-                aria-label={color.name}
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* Size selector */}
-        <div>
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-sm font-bold text-dark uppercase">Size</h3>
-            <button className="text-xs font-semibold text-text-secondary uppercase hover:text-dark transition-colors">
-              Size Chart
-            </button>
-          </div>
-          <div className="grid grid-cols-6 sm:grid-cols-8 lg:grid-cols-6 gap-2">
-            {sizes.map((size) => (
-              <button
-                key={size}
-                onClick={() => setSelectedSize(size)}
-                className={`h-12 rounded-lg border text-sm font-medium transition-all ${
-                  selectedSize === size
-                    ? 'bg-dark text-white border-dark'
-                    : 'border-border text-dark hover:border-dark'
-                } ${[39, 40].includes(size) ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}`}
-                disabled={[39, 40].includes(size)}
               >
-                {size}
+                <span className="w-3.5 h-3.5 rounded-full border border-white/20" style={{ backgroundColor: color.value }} />
+                {color.name}
               </button>
             ))}
           </div>
         </div>
 
-        {/* Actions */}
-        <div className="space-y-3 pt-2">
+        {/* Size Chips */}
+        <div>
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-xs font-bold text-muted uppercase tracking-wider">Select Size (EU)</h3>
+            <button className="text-xs font-semibold text-gold hover:underline">
+              Size Guide
+            </button>
+          </div>
+          <div className="grid grid-cols-5 gap-2">
+            {sizes.map((size) => {
+              const disabled = [39, 40].includes(size);
+              const active = selectedSize === size;
+              return (
+                <button
+                  key={size}
+                  onClick={() => setSelectedSize(size)}
+                  disabled={disabled}
+                  className={`h-11 rounded-xl border text-xs font-bold transition-all ${
+                    active
+                      ? 'bg-gold text-ink border-gold shadow-[0_0_15px_rgba(212,175,55,0.4)]'
+                      : 'border-white/10 bg-[#181824] text-bone hover:border-gold/50'
+                  } ${disabled ? 'opacity-30 cursor-not-allowed line-through' : 'cursor-pointer'}`}
+                >
+                  {size}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="space-y-3 pt-4">
           <div className="flex gap-3">
             <button
               onClick={handleAddToCart}
               disabled={!selectedSize}
-              className="flex-1 bg-dark text-white text-sm font-bold uppercase tracking-wide py-4 rounded-lg hover:bg-dark-secondary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 bg-gradient-to-r from-gold via-gold-bright to-gold text-ink text-xs font-black uppercase tracking-widest py-4 rounded-xl hover:shadow-[0_0_25px_rgba(212,175,55,0.4)] hover:scale-[1.02] transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
-              Add to Cart
+              <ShoppingBag className="w-4 h-4" /> Add to Bag
             </button>
             <button
-              className="w-14 h-14 border border-border rounded-lg flex items-center justify-center hover:border-dark transition-colors"
+              className="w-12 h-12 bg-[#181824] border border-white/10 rounded-xl flex items-center justify-center hover:border-gold text-bone transition-colors"
               aria-label="Add to wishlist"
             >
-              <Heart className="w-5 h-5 text-dark" />
+              <Heart className="w-5 h-5 text-gold" />
             </button>
           </div>
           <button
             onClick={handleBuyNow}
             disabled={!selectedSize}
-            className="w-full bg-yellow text-dark text-sm font-bold uppercase tracking-wide py-4 rounded-lg hover:opacity-90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-[#181824] border border-white/15 hover:border-gold text-bone text-xs font-bold uppercase tracking-widest py-4 rounded-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed"
           >
-            Buy it Now
+            Express Checkout
           </button>
         </div>
 
-        {/* About the product */}
-        <div className="border-t border-border pt-6">
-          <h3 className="text-sm font-bold text-dark uppercase mb-3">About the Product</h3>
-          <p className="text-sm text-text-secondary mb-1">
-            {colors.find((c) => c.value === selectedColor)?.name || 'Shadow Navy'} / Army Green
+        {/* Studio Product Guarantees */}
+        <div className="border-t border-white/10 pt-6 space-y-3">
+          <div className="flex items-center gap-2 text-xs text-muted">
+            <ShieldCheck className="w-4 h-4 text-gold shrink-0" />
+            <span>Guaranteed Authentic &amp; Serialized Studio Inspection</span>
+          </div>
+          <p className="text-xs text-muted leading-relaxed">
+            {product.description || 'Crafted with premium materials and signature SOLEVA cushioning.'}
           </p>
-          <p className="text-sm text-text-secondary leading-relaxed mt-3">
-            {product.description || 'This product is excluded from all promotional discounts and offers.'}
-          </p>
-          <ul className="mt-3 space-y-1.5">
-            <li className="text-sm text-text-secondary flex items-start gap-2">
-              <span className="mt-1.5 w-1 h-1 bg-text-secondary rounded-full flex-shrink-0" />
-              Pay over time in interest-free installments with Affirm, Klarna or Afterpay.
-            </li>
-            <li className="text-sm text-text-secondary flex items-start gap-2">
-              <span className="mt-1.5 w-1 h-1 bg-text-secondary rounded-full flex-shrink-0" />
-              Join adiClub to get unlimited free standard shipping, returns, &amp; exchanges.
-            </li>
-          </ul>
         </div>
+
       </div>
     </div>
   );

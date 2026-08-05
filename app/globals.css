@@ -1,76 +1,244 @@
 @import "tailwindcss";
 
-@theme inline {
-  --color-dark: #232321;
-  --color-dark-secondary: #333333;
-  --color-yellow: #FFA52F;
-  --color-blue: #4A69E2;
-  --color-blue-dark: #3B5BDB;
-  --color-bg: #FAFAFA;
-  --color-bg-card: #FFFFFF;
-  --color-text: #232321;
-  --color-text-secondary: #70706E;
-  --color-text-light: #656565;
-  --color-border: #E7E7E3;
-  --color-star: #FFC633;
-  --color-badge-new: #4A69E2;
-  --color-badge-sale: #FFA52F;
-  --color-bg-cart: #E7EFE6;
-  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
-  --font-display: "Inter", system-ui, -apple-system, sans-serif;
+/* ==========================================================================
+   SOLEVA — Luxe Footwear Studio Design System
+   Obsidian surfaces, metallic gold accents, editorial type, glassmorphism.
+   ========================================================================== */
+
+@theme {
+  /* ── Surfaces ───────────────────────────────────────────── */
+  --color-ink: #09090d;
+  --color-ink-soft: #12121a;
+  --color-surface: #171722;
+  --color-surface-2: #1e1e2d;
+  --color-surface-3: #28283a;
+
+  /* ── Gold & Accent palette ──────────────────────────────── */
+  --color-gold: #d4af37;
+  --color-gold-bright: #f4e082;
+  --color-gold-deep: #967a22;
+  --color-blue: #4f46e5;
+  --color-blue-dark: #3730a3;
+  --color-[#4B5267]: #4B5267;
+
+  /* ── Foreground ─────────────────────────────────────────── */
+  --color-bone: #f8f8fc;
+  --color-muted: #a0a0b0;
+  --color-dim: #686878;
+
+  /* ── Hairlines & Borders ────────────────────────────────── */
+  --color-line: rgba(255, 255, 255, 0.08);
+  --color-line-strong: rgba(255, 255, 255, 0.18);
+  --color-border: rgba(255, 255, 255, 0.1);
+
+  /* ── Feedback ───────────────────────────────────────────── */
+  --color-danger: #f43f5e;
+  --color-success: #10b981;
+
+  /* ── Type ───────────────────────────────────────────────── */
+  --font-display: var(--font-sora), "Sora", system-ui, sans-serif;
+  --font-sans: var(--font-inter), "Inter", system-ui, sans-serif;
+
+  /* ── Radii ──────────────────────────────────────────────── */
+  --radius-card: 1.5rem;
+  --radius-shell: 2rem;
+
+  /* ── Motion ─────────────────────────────────────────────── */
+  --ease-luxe: cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-rise: rise 0.7s var(--ease-luxe) both;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-shimmer: shimmer 2.5s linear infinite;
+  --animate-glow: pulseGlow 4s ease-in-out infinite;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes shimmer {
+  from {
+    background-position: -200% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* ==========================================================================
+   Base Styles
+   ========================================================================== */
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--color-bg);
-  color: var(--color-text);
+  background: var(--color-ink);
+  color: var(--color-bone);
   font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
 }
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-ink);
+}
+
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #242434 transparent;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #242434;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3b3b52;
+}
+
+/* ==========================================================================
+   Layout Container
+   ========================================================================== */
 
 .container {
   width: 100%;
-  max-width: 1320px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
 }
 
 @media (min-width: 768px) {
   .container {
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding-inline: 2.5rem;
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1280px) {
   .container {
-    padding-left: 3rem;
-    padding-right: 3rem;
+    padding-inline: 3.5rem;
   }
 }
 
-/* Hide scrollbar for carousels */
+/* ==========================================================================
+   Surfaces & Glassmorphism
+   ========================================================================== */
+
+.glass-header {
+  background: rgba(13, 13, 19, 0.75);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-card {
+  background: rgba(22, 22, 32, 0.65);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-card-hover {
+  transition: transform 0.4s var(--ease-luxe), border-color 0.3s ease, box-shadow 0.4s ease;
+}
+
+.glass-card-hover:hover {
+  transform: translateY(-4px);
+  border-color: rgba(212, 175, 55, 0.4);
+  box-shadow: 0 20px 40px -15px rgba(212, 175, 55, 0.15);
+}
+
+.bg-mesh {
+  background:
+    radial-gradient(60% 60% at 15% 15%, rgba(212, 175, 55, 0.15), transparent 60%),
+    radial-gradient(50% 50% at 85% 25%, rgba(79, 70, 229, 0.12), transparent 55%),
+    var(--color-ink);
+}
+
+/* ==========================================================================
+   Typography & Accents
+   ========================================================================== */
+
+.text-gold-gradient {
+  background: linear-gradient(135deg, #f4e082 0%, #d4af37 50%, #aa841c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-luxe-gradient {
+  background: linear-gradient(135deg, #ffffff 0%, #d4af37 60%, #ffffff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
 .hide-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
 
-/* Custom checkbox/radio styles */
-.size-btn {
-  @apply flex items-center justify-center w-10 h-10 border border-border rounded-lg text-sm font-medium cursor-pointer transition-all duration-200;
-}
-
-.size-btn:hover {
-  @apply border-dark;
-}
-
-.size-btn.active {
-  @apply bg-dark text-white border-dark;
-}
-
-.size-btn.disabled {
-  @apply opacity-40 cursor-not-allowed;
-}

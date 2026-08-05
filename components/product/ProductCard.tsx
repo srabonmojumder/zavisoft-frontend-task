@@ -18,20 +18,20 @@ export default function ProductCard({ product, isNew = true, discount }: Product
   const displayUrl = imgError ? '/placeholder.svg' : imageUrl;
 
   return (
-    <div className="group flex flex-col h-full">
+    <div className="group flex flex-col h-full bg-[#12121c] border border-white/10 hover:border-gold/50 rounded-3xl p-3.5 transition-all duration-500 hover:-translate-y-1.5 shadow-xl hover:shadow-[0_15px_30px_rgba(212,175,55,0.1)]">
 
-      {/* Image container */}
-      <div className="relative bg-[#E7E7E7] rounded-[28px] overflow-hidden aspect-[3/4] mb-5 border-[8px] border-white">
+      {/* Image Container */}
+      <div className="relative bg-[#1a1a26] rounded-2xl overflow-hidden aspect-[3/4] mb-4 border border-white/5 group-hover:border-gold/20 transition-colors">
 
         {/* Badges */}
-        <div className="absolute top-4 left-4 z-10 flex flex-col gap-2">
+        <div className="absolute top-3 left-3 z-10 flex flex-col gap-1.5">
           {isNew && (
-            <span className="bg-blue text-white text-sm font-bold uppercase px-6 py-3 rounded-tl-[50px] rounded-br-[50px] rounded-tr-[0px] rounded-bl-[0px] leading-none">
-              New
+            <span className="bg-gold text-ink text-[10px] font-black uppercase px-3 py-1.5 rounded-full tracking-wider shadow-md">
+              NEW RELEASE
             </span>
           )}
           {discount && (
-            <span className="bg-yellow text-dark text-sm font-bold px-5 py-2.5 rounded-xl leading-none">
+            <span className="bg-white/10 backdrop-blur-md border border-white/20 text-gold-bright text-[10px] font-bold px-3 py-1 rounded-full">
               {discount}
             </span>
           )}
@@ -43,23 +43,26 @@ export default function ProductCard({ product, isNew = true, discount }: Product
             alt={product.title}
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 25vw"
-            className="object-contain p-4 transition-transform duration-500"
+            className="object-contain p-4 group-hover:scale-108 transition-transform duration-700 ease-out"
             onError={() => setImgError(true)}
           />
         </Link>
       </div>
 
-      {/* Product title */}
-      <h3 className="text-base sm:text-lg md:text-xl font-black text-dark uppercase leading-tight mb-4 min-h-[2.5em] line-clamp-2 tracking-wide">
+      {/* Product Title */}
+      <h3 className="text-sm sm:text-base font-bold text-bone uppercase leading-snug mb-3 min-h-[2.6em] line-clamp-2 tracking-wide group-hover:text-gold transition-colors">
         {product.title}
       </h3>
 
-      {/* View Product button - dark bg with orange price */}
+      {/* View Product Action Button */}
       <Link
         href={`/products/${product.id}`}
-        className="mt-auto inline-flex items-center justify-center w-full bg-dark text-white text-xs sm:text-sm font-bold uppercase tracking-wider px-4 py-4 rounded-xl hover:bg-dark-secondary transition-colors"
+        className="mt-auto inline-flex items-center justify-between w-full bg-[#1c1c2b] hover:bg-gold hover:text-ink border border-white/10 text-bone text-xs font-bold uppercase tracking-wider px-4 py-3.5 rounded-xl transition-all duration-300 group/btn"
       >
-        View Product - <span className="text-yellow ml-1">{formatPrice(product.price)}</span>
+        <span>View Details</span>
+        <span className="text-gold-bright group-hover/btn:text-ink font-extrabold transition-colors">
+          {formatPrice(product.price)}
+        </span>
       </Link>
     </div>
   );

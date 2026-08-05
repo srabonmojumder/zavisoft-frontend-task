@@ -1,6 +1,6 @@
-# KICKS — Premium Sneakers Store
+# SOLEVA — Luxe Footwear & Sneakers Studio
 
-A production-quality sneaker store frontend built with Next.js, TypeScript, and Tailwind CSS. Features a landing page, product detail pages, and a shopping cart — all fully responsive and matching the Figma design.
+A high-end luxury sneaker store frontend built with Next.js 16, TypeScript, and Tailwind CSS. Features a dark luxe glassmorphic interface, product detail pages, and an interactive shopping cart.
 
 ## Tech Stack
 

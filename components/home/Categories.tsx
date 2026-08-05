@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ChevronLeft, ChevronRight, ArrowUpRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ArrowUpRight, Layers } from 'lucide-react';
 import { Category } from '@/types';
 import { sanitizeImageUrl } from '@/lib/utils';
 
@@ -18,8 +18,8 @@ function CategoryImage({ src, alt }: { src: string; alt: string }) {
 
   if (isPlaceholder || error) {
     return (
-      <div className="absolute inset-0 flex items-center justify-center">
-        <span className="text-dark/10 text-6xl md:text-8xl font-black uppercase tracking-tighter select-none">
+      <div className="absolute inset-0 flex items-center justify-center bg-[#181824]">
+        <span className="text-white/10 text-5xl font-black uppercase tracking-widest select-none">
           {alt}
         </span>
       </div>
@@ -32,7 +32,7 @@ function CategoryImage({ src, alt }: { src: string; alt: string }) {
       alt={alt}
       fill
       sizes="(max-width: 768px) 100vw, 50vw"
-      className="object-contain p-6 group-hover:scale-105 transition-transform duration-500"
+      className="object-cover group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100"
       onError={() => setError(true)}
     />
   );
@@ -48,18 +48,25 @@ export default function Categories({ categories }: CategoriesProps) {
   const goPrev = () => setCurrentIndex((prev) => Math.max(prev - 1, 0));
 
   return (
-    <section className="bg-dark pt-12 md:pt-20">
+    <section className="bg-[#09090d] py-16 md:py-24 border-t border-white/5">
       <div className="container">
-        {/* Section header */}
-        <div className="flex items-center justify-between mb-8 md:mb-10">
-          <h2 className="text-3xl md:text-4xl lg:text-[74px] font-black text-white uppercase font-semibold">
-            Categories
-          </h2>
+
+        {/* Section Header */}
+        <div className="flex items-center justify-between mb-10 md:mb-12">
+          <div>
+            <div className="flex items-center gap-2 text-gold text-xs font-bold uppercase tracking-[0.2em] mb-2">
+              <Layers className="w-3.5 h-3.5" /> Curated Lines
+            </div>
+            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white uppercase tracking-tight">
+              STUDIO <span className="text-gold-gradient">CATEGORIES</span>
+            </h2>
+          </div>
+
           <div className="flex gap-2">
             <button
               onClick={goPrev}
               disabled={currentIndex === 0}
-              className="w-10 h-10 rounded-lg bg-[#3D3D3D] text-white flex items-center justify-center disabled:opacity-40 hover:bg-[#4a4a4a] transition-colors"
+              className="w-11 h-11 rounded-2xl bg-[#14141e] border border-white/10 text-white flex items-center justify-center disabled:opacity-30 hover:border-gold hover:text-gold transition-all"
               aria-label="Previous"
             >
               <ChevronLeft className="w-5 h-5" />
@@ -67,7 +74,7 @@ export default function Categories({ categories }: CategoriesProps) {
             <button
               onClick={goNext}
               disabled={currentIndex >= maxIndex}
-              className="w-10 h-10 rounded-lg bg-[#3D3D3D] text-white flex items-center justify-center disabled:opacity-40 hover:bg-[#4a4a4a] transition-colors"
+              className="w-11 h-11 rounded-2xl bg-[#14141e] border border-white/10 text-white flex items-center justify-center disabled:opacity-30 hover:border-gold hover:text-gold transition-all"
               aria-label="Next"
             >
               <ChevronRight className="w-5 h-5" />
@@ -75,32 +82,44 @@ export default function Categories({ categories }: CategoriesProps) {
           </div>
         </div>
 
-      </div>
-
-        {/* Categories grid */}
-        <div className="grid pb-[25px] grid-cols-1 md:grid-cols-2 gap-6 md:gap-8  bg-white md:ml-[130px] rounded-tl-[51px]">
-          {displayCategories.slice(currentIndex, currentIndex + itemsPerPage).map((category, index) => (
+        {/* Categories Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+          {displayCategories.slice(currentIndex, currentIndex + itemsPerPage).map((category) => (
             <Link
               key={category.id}
               href="/"
-              className="group"
+              className="group relative bg-[#12121c] border border-white/10 hover:border-gold/50 rounded-3xl overflow-hidden p-6 sm:p-8 flex flex-col justify-between h-[320px] sm:h-[400px] transition-all duration-500 hover:-translate-y-1 shadow-2xl"
             >
-              <div className={`relative overflow-hidden ${index === 0 ? 'rounded-tl-[48px] bg-[#ECEEF0]' : 'bg-[#F6F6F6]'}`}>
-                <div className="relative h-[280px] sm:h-[340px] md:h-[400px]">
-                  <CategoryImage src={category.image} alt={category.name} />
-                </div>
+              {/* Category Background Image */}
+              <div className="absolute inset-0 z-0">
+                <CategoryImage src={category.image} alt={category.name} />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#09090d] via-[#09090d]/60 to-transparent" />
               </div>
-              <div className="flex items-end justify-between mt-5 px-12">
-                <h3 className="text-xl md:text-2xl font-bold text-[#232321] uppercase leading-tight">
-                  {category.name}
-                </h3>
-                <span className="w-10 h-10 bg-[#3D3D3D] rounded-lg flex items-center justify-center shrink-0 group-hover:bg-yellow transition-colors">
-                  <ArrowUpRight className="w-5 h-5 text-white group-hover:text-dark transition-colors" />
+
+              {/* Top Tag */}
+              <div className="relative z-10">
+                <span className="bg-gold/10 backdrop-blur-md border border-gold/30 text-gold-bright text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full">
+                  SOLEVA LINE
+                </span>
+              </div>
+
+              {/* Bottom Details */}
+              <div className="relative z-10 flex items-end justify-between">
+                <div>
+                  <h3 className="text-2xl sm:text-4xl font-black text-white uppercase tracking-tight group-hover:text-gold transition-colors">
+                    {category.name}
+                  </h3>
+                  <p className="text-muted text-xs sm:text-sm mt-1">Explore luxury craftsmanship</p>
+                </div>
+                <span className="w-12 h-12 bg-gold text-ink rounded-2xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform shadow-lg shadow-gold/30">
+                  <ArrowUpRight className="w-5 h-5" />
                 </span>
               </div>
             </Link>
           ))}
         </div>
+
+      </div>
     </section>
   );
 }
